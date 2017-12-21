@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ $# -eq 1 ]; then
+	echo Generating test files...
+	cxxtestgen --have-eh --abort-on-fail --error-printer -o $1.cpp $1.h
+
+	echo Compiling object code....
+	g++ -o run_file *.cpp
+
+	echo -------------------------------- RUNNING PROGRAM NOW --------------------------------
+
+	./run_file
+	rm run_file
+	rm $1.cpp
+elif [ $# -gt 1 ]; then
+	echo "Please specify ONLY ONE test file name in the command e.g. ccomp someTestFileName"
+else
+	echo "Please specify a test file name in the command e.g. ccomp someTestFileName"
+fi
